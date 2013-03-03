@@ -48,18 +48,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Enums\Integers.cs" />
+    <Compile Include="Handlers\Handler.cs" />
+    <Compile Include="Handlers\Implementation\PrintDefaultHandler.cs" />
+    <Compile Include="Handlers\Implementation\PrintBuzzHandler.cs" />
+    <Compile Include="Handlers\Implementation\PrintFizzBuzzHandler.cs" />
+    <Compile Include="Handlers\Implementation\PrintFizzHandler.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Rules\Implemenation\PrintBuzzRule.cs" />
+    <Compile Include="Rules\Implemenation\PrintDefaultRule.cs" />
+    <Compile Include="Rules\Implemenation\PrintFizzBuzzRule.cs" />
+    <Compile Include="Rules\Implemenation\PrintFizzRule.cs" />
+    <Compile Include="Rules\IMultiple.cs" />
+    <Compile Include="Rules\IPrintRule.cs" />
+    <Compile Include="Rules\IsMultiple.cs" />
     <Compile Include="Utility\ConfigHelper.cs" />
-    <Compile Include="Rules\Implementations\FilterRule.cs" />
-    <Compile Include="Rules\Interfaces\IFilterRule.cs" />
-    <Compile Include="Rules\Interfaces\IPrettyPrintComposite.cs" />
-    <Compile Include="Rules\Implementations\PrettyPrintComposite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\Tests.cs" />
-    <Compile Include="PrettyPrinter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

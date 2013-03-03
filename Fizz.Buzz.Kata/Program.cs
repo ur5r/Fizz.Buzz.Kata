@@ -1,43 +1,47 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using SampleApplication.Rules.Interfaces;
-using SampleApplication.Rules.Implementations;
 using SampleApplication.Utility;
+using SampleApplication.Rules.Implemenation;
 
 namespace SampleApplication
 {
     class Program
     {
-      
+        private const int MIN = 1,MAX=100;
         static void Main(string[] args)
         {
-            var rules = new List<IPrettyPrintComposite>();
-            var filterRule = new FilterRule();
-            var printforFour = new PrettyPrintComposite(filterRule)
-                                   {
-                                       Integer = GetFirstMultiple(),
-                                       PrintValue = ConfigHelper.readAppSettingsFromConfig("PrintForFirstInteger")
-                                   };
-            var printForSeven = new PrettyPrintComposite(filterRule)
-                                    {
-                                        Integer = GetSecondMultiple(),
-                                        PrintValue = ConfigHelper.readAppSettingsFromConfig("PrintForSecondInteger")
-                                    };
-            rules.Add(printforFour);
-            rules.Add(printForSeven);
-            var prettyPrinter = new PrettyPrinter(rules);
-            prettyPrinter.PrintBasedOnRules();
-        }
-        private static int GetFirstMultiple()
-        {
-            return ConfigHelper.GetIntegerFromConfig("FirstInteger"); ;
+         
 
+            Handlers.Handler fizzBuzzhandler = new Handlers.Implementation.PrintFizzBuzzHandler();
+            fizzBuzzhandler.setPrintRule(new PrintFizzBuzzRule());
+            Handlers.Handler fizzHandler = new Handlers.Implementation.PrintFizzHandler();
+            fizzHandler.setPrintRule(new PrintFizzRule());
+            Handlers.Handler buzzHandler = new Handlers.Implementation.PrintBuzzHandler();
+            buzzHandler.setPrintRule(new PrintBuzzRule());
+            Handlers.Handler defaultHandler = new Handlers.Implementation.PrintDefaultHandler();
+            defaultHandler.setPrintRule(new PrintDefaultRule());
+
+            fizzBuzzhandler.setSuccessor(fizzHandler);
+            fizzHandler.setSuccessor(buzzHandler);
+            buzzHandler.setSuccessor(defaultHandler);
+          
+            
+            prettyPrint(MIN, fizzBuzzhandler);
+          
         }
-        private static int GetSecondMultiple()
+
+        static void prettyPrint(int i,Handlers.Handler fizzBuzzHandler)
         {
-            return ConfigHelper.GetIntegerFromConfig("SecondInteger");
+            if (i> MAX)
+            {
+                return;
+            }
+            fizzBuzzHandler.HandleRequest(new Handlers.Request(i));
+            i++;
+            prettyPrint(i, fizzBuzzHandler);
         }
+       
 
      
     }
